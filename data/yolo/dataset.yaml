@@ -1,0 +1,4 @@
+train: /home/sanvyx/Documents/TUBITAK/colony-counter/data/yolo/images/train
+val: /home/sanvyx/Documents/TUBITAK/colony-counter/data/yolo/images/val
+nc: 6
+names: ['Bsubtilis','Calbicans','Contamination','Ecoli','Paeruginosa','Saureus']
