@@ -1,0 +1,37 @@
+<annotation>
+	<folder>my-project-name</folder>
+	<filename>sp10_img02.jpg</filename>
+	<path>/my-project-name/sp10_img02.jpg</path>
+	<source>
+		<database>Unspecified</database>
+	</source>
+	<size>
+		<width>2205</width>
+		<height>2187</height>
+		<depth>3</depth>
+	</size>
+	<object>
+		<name>sp10</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>393</xmin>
+			<ymin>443</ymin>
+			<xmax>424</xmax>
+			<ymax>474</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>sp10</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1823</xmin>
+			<ymin>1298</ymin>
+			<xmax>1856</xmax>
+			<ymax>1330</ymax>
+		</bndbox>
+	</object>
+</annotation>
