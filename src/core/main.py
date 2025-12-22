@@ -44,6 +44,9 @@ def run_inference(image_path: Path, conf: float, iou_thresh: float, merge_iou: f
         imgsz=IMG_SIZE,
         conf=conf,
         iou=iou_thresh,
+        # Increase max_det so predictions aren't artificially capped at 300 (YOLO default)
+        # Set to a higher value for images with many colonies. Be mindful of memory/latency.
+        max_det=1000,
         show=False,
         verbose=False,
     )
