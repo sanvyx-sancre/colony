@@ -87,5 +87,51 @@ def run_inference(image_path: Path, conf: float, iou_thresh: float, merge_iou: f
             1,
         )
 
+    # Total Colonies by Species (displayed on bottom left of images)
+    species_counts = {}
+    for det in filtered:
+        name = model.names[det["cls"]]
+        species_counts[name] = species_counts.get(name, 0) + 1
+
+    if species_counts:
+        # Prepare lines like "species: count"
+        lines = [f"{k}: {v}" for k, v in species_counts.items()]
+
+        # Drawing parameters
+        font = cv2.FONT_HERSHEY_SIMPLEX
+        font_scale = 1.4
+        thickness = 3
+        margin = 8
+
+        # Compute line height and background size
+        (w0, h0), baseline = cv2.getTextSize(lines[0], font, font_scale, thickness)
+        line_height = h0 + 6
+        text_width = 0
+        for line in lines:
+            (w, h), _ = cv2.getTextSize(line, font, font_scale, thickness)
+            if w > text_width:
+                text_width = w
+
+        rect_w = text_width + margin * 2
+        rect_h = line_height * len(lines) + margin
+
+        # Position rectangle at bottom-left
+        rect_x1 = margin
+        rect_y1 = img.shape[0] - rect_h - margin
+        rect_x2 = rect_x1 + rect_w
+        rect_y2 = rect_y1 + rect_h
+
+        # Draw semi-transparent background for readability
+        overlay = img.copy()
+        cv2.rectangle(overlay, (rect_x1, rect_y1), (rect_x2, rect_y2), (0, 0, 0), -1)
+        alpha = 0.5
+        cv2.addWeighted(overlay, alpha, img, 1 - alpha, 0, img)
+
+        # Put each line of text in white
+        for i, line in enumerate(lines):
+            text_x = rect_x1 + margin
+            text_y = rect_y1 + margin + (i + 1) * line_height - 4
+            cv2.putText(img, line, (text_x, text_y), font, font_scale, (255, 255, 255), thickness, cv2.LINE_AA)
+
     out_path = OUTPUT_DIR / image_path.name
     cv2.imwrite(str(out_path), img)
